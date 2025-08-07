@@ -30,10 +30,13 @@ def main():
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
 
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
     asteroidfield = AsteroidField()
+
+    Shot.containers = (shots, updatable, drawable)
 
     # BLACK MAGIC ALERT
     # the code bellow ADDS a method to the player class DESPITE BEING IN MAIN !!! This will affect all player objects identically
@@ -67,9 +70,16 @@ def main():
 
         display_gameover = False
         for asteroid in asteroids:
-            if player.collide(asteroid):
+            if player.collide(asteroid):    # if player collide with asteroid
                 print("Game over!")
                 sys.exit()
+            
+            for shot in shots:
+                if shot.collide(asteroid):  # if shot connects with asteroid
+                    shot.kill()             # from pygame.sprite.Sprite.kill() it removes the object from all its groups
+                    asteroid.kill()
+
+
 
         screen.fill(0)  # Fill the screen with black
 
