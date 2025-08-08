@@ -77,7 +77,7 @@ def main():
             for shot in shots:
                 if shot.collide(asteroid):  # if shot connects with asteroid
                     shot.kill()             # from pygame.sprite.Sprite.kill() it removes the object from all its groups
-                    asteroid.kill()
+                    asteroid.split()
 
 
 
